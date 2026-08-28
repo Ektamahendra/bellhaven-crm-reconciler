@@ -56,6 +56,16 @@ Run reconciliation directly:
 
 `python3 daily_reconcile.py`
 
+## Environment Variables
+
+The application expects the CRM authentication token to be provided through an environment variable:
+
+`CRM_TOKEN`
+
+For local development, this can be stored in a `.env` file.
+
+For GitHub Actions, the token is stored securely as a repository secret and is not committed to source control.
+
 ## Idempotency
 
 Proposal identities are persisted so rerunning reconciliation does not recreate proposals that are already known or reviewed.
@@ -74,6 +84,12 @@ CRM credentials should be stored as GitHub repository secrets rather than commit
 
 Python, Streamlit, SQLite, Requests, and GitHub Actions.
 
+
+
 ## Assessment Notes
 
-This project was developed as part of a technical assessment. AI-assisted development was used for implementation support, debugging, and code review. Final business-rule decisions, reconciliation review, and CRM approvals were performed through the human-review workflow.
+Matching uses normalized facility names, addresses, city/state/ZIP information, and fuzzy comparison to identify the most likely CRM account for each website community. High-confidence records are classified automatically, while ambiguous records are routed to human review.
+
+AI-assisted development was used for implementation support, debugging, and code review. Final reconciliation decisions and CRM approvals were made through the human-review workflow.
+
+If I continued developing this system, I would move proposal and decision persistence from local SQLite to a durable production database, add automated test coverage for reconciliation and CHOW scenarios, improve entity-resolution confidence scoring, and add monitoring for scheduled reconciliation failures.
