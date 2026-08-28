@@ -27,8 +27,7 @@ jobs:
 
       - name: Run reconciliation
         env:
-          CRM_BASE_URL: ${{ secrets.CRM_BASE_URL }}
-          CRM_API_KEY: ${{ secrets.CRM_API_KEY }}
+          CRM_TOKEN: ${{ secrets.CRM_TOKEN }}
         run: |
           python3 daily_reconcile.py
 
