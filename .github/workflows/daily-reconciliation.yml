@@ -1,0 +1,30 @@
+name: Daily Bellhaven Reconciliation
+
+on:
+  schedule:
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run reconciliation
+        env:
+          CRM_BASE_URL: ${{ secrets.CRM_BASE_URL }}
+          CRM_API_KEY: ${{ secrets.CRM_API_KEY }}
+        run: |
+          python3 daily_reconcile.py
