@@ -78,7 +78,9 @@ A GitHub Actions workflow is included at `.github/workflows/daily-reconciliation
 
 It is configured for a daily reconciliation run and also supports manual execution through `workflow_dispatch`.
 
-CRM credentials should be stored as GitHub repository secrets rather than committed to source control.
+CRM credentials should be stored as GitHub repository secrets rather than committed to source control. 
+
+The scheduled workflow generates reconciliation proposals only; CRM writes still require explicit human approval through the review application.
 
 ## Technology
 
